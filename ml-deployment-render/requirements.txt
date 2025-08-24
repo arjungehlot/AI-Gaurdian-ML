@@ -1,10 +1,10 @@
 pip>=21.0
 setuptools>=50.0
 wheel>=0.36
-flask==3.0.2
-scikit-learn==1.5.0
-numpy==1.26.4
-gunicorn==22.0.0
+flask>=3.0.2
+scikit-learn>=1.5.0
+numpy>=1.26.4
+gunicorn>=22.0.0
 python-3.11.9
 --only-binary :all:
 pandas
