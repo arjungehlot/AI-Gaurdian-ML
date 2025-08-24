@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML Model Deployment - Safe vs Injection Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Safe vs Injection Prompt Detector</h1>
+        <p>Enter a prompt to classify it as SAFE or INJECTION</p>
+        
+        <form action="/predict" method="post">
+            <textarea name="text" rows="5" placeholder="Enter your prompt here..." required>{{ result.input_text if result else '' }}</textarea>
+            <button type="submit">Classify</button>
+        </form>
+        
+        {% if result %}
+    <div class="result">
+        <h2>Prediction Result:</h2>
+        <p><strong>Input:</strong> {{ result.input_text }}</p>
+        <p><strong>Prediction:</strong> 
+            {% if result.prediction == 'SAFE' %}
+                <span class="safe">SAFE</span>
+            {% elif result.prediction == 'INJECTION' %}
+                <span class="harmful">HARMFUL</span>
+            {% else %}
+                <span>{{ result.prediction }}</span>
+            {% endif %}
+        </p>
+        <p><strong>Confidence:</strong> {{ "%.2f"|format(result.confidence * 100) }}%</p>
+    </div>
+{% endif %}
+
+        
+        <div class="api-info">
+            <h2>API Usage</h2>
+            <p>You can also use the API endpoint:</p>
+            <code>POST /api/predict</code>
+            <p>With JSON payload: <code>{"text": "your prompt here"}</code></p>
+        </div>
+    </div>
+</body>
+</html>
